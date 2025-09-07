@@ -1,0 +1,43 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, card in ipairs(context.cardarea.cards) do"
+position = "before"
+payload = "local curcards = Quantum.processCards(context)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "for _, area in ipairs(SMODS.get_card_areas('jokers')) do for _, _card in ipairs(area.cards) do"
+position = "at"
+payload = "local areas = Quantum.processArea(SMODS.get_card_areas('jokers')); for _, area in ipairs(areas) do local curcards = Quantum.processArea(area.cards); for _, _card in ipairs(curcards) do"
+overwrite = true
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "for _, area in ipairs(SMODS.get_card_areas('jokers')) do for _, _card in ipairs(area.cards) do"
+position = "at"
+payload = "local areas = Quantum.processArea(SMODS.get_card_areas('jokers')); for _, area in ipairs(areas) do local curcards = Quantum.processArea(area.cards); for _, _card in ipairs(curcards) do"
+overwrite = true
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = """       elseif _c.name == "The World" then loc_vars = {cfg.max_highlighted, localize(cfg.suit_conv, 'suits_plural'), colours = {G.C.SUITS[cfg.suit_conv]}}
+       end
+       localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}"""
+position = "before"
+payload = """
+elseif _c.set == 'QuantumDescriptionDummy' then
+    localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}
+"""
+match_indent = true

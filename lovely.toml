@@ -41,3 +41,22 @@ elseif _c.set == 'QuantumDescriptionDummy' then
     localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}
 """
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = """if not hand_space then
+        local limit = G.hand.config.card_limit - #G.hand.cards
+        local unfixed = not G.hand.config.fixed_limit
+        local n = 0
+        while n < #G.deck.cards do
+            local card = G.deck.cards[#G.deck.cards-n]"""
+position = "after"
+payload = """
+if  G.GAME.modifiers.quantum_nightmare and #(SMODS.get_enhancements(card)) < 1 then
+if SMODS.pseudorandom_probability(self, 'nightmare_ cards', 1, 3) then
+    card:set_ability(G.P_CENTERS["m_stone"])
+end
+end
+"""
+match_indent = true

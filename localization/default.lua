@@ -33,7 +33,32 @@ return {
                     "Cards give {X:mult,C:white}X0.4{} mult",
                     "per {C:attention}Joker{}"
                 }
+            },
+            j_quantum_rolling_rock = {
+                name = 'Rolling Rock',
+                text = {
+                    '{C:attention}Stone Cards{} give {C:chips}#1#{} extra chips',
+                    'Increases by {X:attention,C:white}^#2#{} per',
+                    "{C:attention}Stone Card{} scored",
+                    "{C:attention}Resets{} at {C:attention}end{} of {C:attention}Blind{}",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+                }
+            },
+            j_quantum_warTimer = {
+                name = 'WAR Timer',
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult",
+                    '{C:attention}Destroyed{} when time runs out',
+                }
             }
+        },
+        Stake = {
+			stake_quantum_nightmare = {
+				name = "Nightmare Stake",
+				text = {
+					"{C:red}Good Luck{}"
+				},
+			}
         },
         QuantumDescriptionDummy={
             qdd_quantum_music_fusion={
@@ -46,6 +71,11 @@ return {
     misc={
         v_dictionary={
             quantum_fusion_count = "#1#/#2#"
+        },
+        v_text={
+            ch_c_quantum_war={
+                "WAR Timer {C:red}kills{} you when time runs out",
+            },
         },
         dictionary={
             b_qfuse = "FUSE",
